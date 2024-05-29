@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="384dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="192dp"
+        android:gravity="center"
+        android:text="Mix Master"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="185dp"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="Mix It Up Together."
+        android:textColor="#878787"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <Button
+        android:id="@+id/button13"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="129dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="4dp"
+        android:background="#801D1D"
+        android:backgroundTint="#A64343"
+        android:shadowColor="#D56565"
+        android:text="Sign up"
+        android:textColor="@color/black"
+        android:textColorLink="#E8EAF6"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#5B268F" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/login_username"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="108dp"
+        android:hint="Username..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/login_password"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:hint="Password..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_username" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="168dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Login"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_password" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
