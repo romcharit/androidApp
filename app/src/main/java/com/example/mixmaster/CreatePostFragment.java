@@ -3,62 +3,48 @@ package com.example.mixmaster;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreatePostFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.mixmaster.model.Model;
+import com.example.mixmaster.model.Post;
+
+
 public class CreatePostFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CreatePostFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CreatePostFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CreatePostFragment newInstance(String param1, String param2) {
-        CreatePostFragment fragment = new CreatePostFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_post, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_post, container, false);
+
+        TextView titleTv = view.findViewById(R.id.create_post_title);
+        ImageView cocktailIv = view.findViewById(R.id.create_post_cocktail_img);
+        ImageButton editImgBtn = view.findViewById(R.id.create_post_edit_img);
+        EditText cocktailNameEt = view.findViewById(R.id.create_post_cocktail_name);
+        EditText cocktailDescriptionEt = view.findViewById(R.id.create_post_cocktail_description);
+        EditText cocktailRecipeEt = view.findViewById(R.id.create_post_cocktail_recipe);
+        Button confirmBtn = view.findViewById(R.id.create_post_confirm_btn);
+
+        confirmBtn.setOnClickListener(view1->{
+            // Image cocktailImg = editImgBtn.url ...
+            String cocktailName = cocktailNameEt.getText().toString();
+            String cocktailDescription = cocktailDescriptionEt.getText().toString();
+            String cocktailRecipe = cocktailRecipeEt.getText().toString();
+            Post post = new Post(cocktailName,cocktailDescription,cocktailRecipe);
+            Model.getInstance().addPost(post,()->{
+                Navigation.findNavController(view1).popBackStack();
+            });
+        });
+
+        return view;
     }
 }

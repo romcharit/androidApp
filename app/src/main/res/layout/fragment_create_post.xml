@@ -7,7 +7,7 @@
     tools:context=".CreatePostFragment">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/create_post_title"
         android:layout_width="284dp"
         android:layout_height="63dp"
         android:layout_marginStart="63dp"
@@ -22,58 +22,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/create_post_cocktail_img"
         android:layout_width="218dp"
         android:layout_height="167dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/create_post_title"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/create_post_edit_img"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="324dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/create_post_cocktail_img"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name_et"
+        android:id="@+id/create_post_cocktail_name"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:hint="Cocktail Name..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/create_post_cocktail_img" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name_description"
+        android:id="@+id/create_post_cocktail_description"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:hint="Description..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_et" />
+        app:layout_constraintTop_toBottomOf="@+id/create_post_cocktail_name" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name_recipe"
+        android:id="@+id/create_post_cocktail_recipe"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:hint="Recipe..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_description" />
+        app:layout_constraintTop_toBottomOf="@+id/create_post_cocktail_description" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/create_post_confirm_btn"
         android:layout_width="185dp"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
@@ -82,6 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_recipe" />
+        app:layout_constraintTop_toBottomOf="@+id/create_post_cocktail_recipe" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

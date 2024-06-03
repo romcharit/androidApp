@@ -27,6 +27,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures{
+        viewBinding true
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -36,12 +40,19 @@ dependencies {
     implementation libs.activity
     implementation libs.constraintlayout
     implementation libs.mediarouter
+    implementation libs.room.common
+    implementation libs.room.runtime
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    annotationProcessor libs.room.compiler
 
     def nav_version = "2.7.7"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    def room_version = "2.4.3"
+    implementation "androidx.room:roomruntime:$room_version"
+    annotationProcessor "androidx.room:roomcompiler:$room_version"
 
 }
