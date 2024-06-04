@@ -21,24 +21,38 @@ import java.util.zip.Inflater;
 class PostViewHolder extends RecyclerView.ViewHolder {
     TextView userNameTv;
     TextView cocktailNameTv;
-    ImageView avatarTv;
-    ImageView cocktailImgTv;
-    ImageButton likeTv;
+    ImageView avatarIv;
+    ImageView cocktailImgIv;
+    ImageButton likeIbtn;
 
     List<Post> data;
 
-    public PostViewHolder(@NonNull View itemView, List<Post> data) {
+    public PostViewHolder(@NonNull View itemView, List<Post> data, PostRecyclerAdapter.OnItemClickListener listener) {
         super(itemView);
         this.data = data;
         userNameTv = itemView.findViewById(R.id.userName_plr);
         cocktailNameTv = itemView.findViewById(R.id.cocktail_name_plr);
-        avatarTv = itemView.findViewById((R.id.avatar_plr));
-        cocktailImgTv = itemView.findViewById(R.id.cocktail_img_plr);
-        likeTv = itemView.findViewById(R.id.like_btn_plr);
+        avatarIv = itemView.findViewById((R.id.avatar_plr));
+        cocktailImgIv = itemView.findViewById(R.id.cocktail_img_plr);
+        likeIbtn = itemView.findViewById(R.id.like_btn_plr);
+        likeIbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // add like ...
+            }
+        });
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = getAdapterPosition();
+                listener.onItemClick(pos);
+            }
+        });
     }
 
-    public void bind(Post post) {
-        userNameTv.setText(post.userName);
+    public void bind(Post post, int pos) {
+        userNameTv.setText(post.useName);
         cocktailNameTv.setText((post.cocktailName));
         //avatarTv
         //cocktailImgTv
@@ -56,10 +70,14 @@ class PostViewHolder extends RecyclerView.ViewHolder {
 // Adapter - makes the rows of the list
 public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
-//        OnItemClickListener listener;
-//        public static interface OnItemClickListener {
-//            void onItemClick(int pos);
-//        }
+    OnItemClickListener listener;
+    public static interface OnItemClickListener {
+        void onItemClick(int pos);
+    }
+
+    void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
 
     LayoutInflater inflater;
     List<Post> data;
@@ -79,7 +97,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.post_list_row, parent, false);
-        return new PostViewHolder(view,data);
+        return new PostViewHolder(view,data,listener);
     }
 
     @Override

@@ -7,18 +7,18 @@
     tools:context=".PostFragment">
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/post_cocktail_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/post_cocktail_name"
         app:srcCompat="@drawable/negroni_image" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/post_cocktail_name"
         android:layout_width="197dp"
         android:layout_height="43dp"
         android:layout_marginTop="100dp"
@@ -39,7 +39,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintTop_toBottomOf="@+id/post_user_name" />
 
     <TextView
         android:id="@+id/textView21"
@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/post_user_name"
         android:layout_width="135dp"
         android:layout_height="42dp"
         android:layout_marginTop="10dp"
@@ -72,5 +72,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintTop_toBottomOf="@+id/post_cocktail_img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

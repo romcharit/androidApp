@@ -3,10 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/postListFragment">
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/postListFragment"
         android:name="com.example.mixmaster.PostListFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_post_list" />
+        android:label="fragment_post_list"
+        tools:layout="@layout/fragment_post_list" >
+        <action
+            android:id="@+id/action_postListFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.mixmaster.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <argument
+            android:name="titleUserName"
+            app:argType="string" />
+    </fragment>
 </navigation>
