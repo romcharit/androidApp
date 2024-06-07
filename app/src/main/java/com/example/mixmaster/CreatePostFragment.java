@@ -40,7 +40,7 @@ public class CreatePostFragment extends Fragment {
             String cocktailDescription = cocktailDescriptionEt.getText().toString();
             String cocktailRecipe = cocktailRecipeEt.getText().toString();
 
-            Post post = new Post(cocktailName,cocktailDescription,cocktailRecipe);
+            Post post = new Post(" ", cocktailName,cocktailDescription,cocktailRecipe, " ", " ", " ");
 
             Model.getInstance().addPost(post,()->{
                 // go back to PostListFragment... onResume will update the data

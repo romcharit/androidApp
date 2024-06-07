@@ -37,10 +37,8 @@ public class PostListFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentPostListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
         RecyclerView list = binding.recyclerList;
         list.setHasFixedSize(true);
-
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         PostRecyclerAdapter adapter = new PostRecyclerAdapter(getLayoutInflater(),data);
         list.setAdapter(adapter);
@@ -55,7 +53,6 @@ public class PostListFragment extends Fragment {
                 Navigation.findNavController(view).navigate(action);
             }
         });
-
         return view;
     }
 

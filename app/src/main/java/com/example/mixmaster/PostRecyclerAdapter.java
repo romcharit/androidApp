@@ -52,7 +52,7 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Post post, int pos) {
-        userNameTv.setText(post.useName);
+        userNameTv.setText(post.userName);
         cocktailNameTv.setText((post.cocktailName));
         //avatarTv
         //cocktailImgTv

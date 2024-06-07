@@ -30,8 +30,10 @@ public class SignUpFragment extends Fragment {
 
         submitBtn.setOnClickListener(view1->{
             // Image avatar = avatarImg.url ...
+            // Password = ?
             String name = userNameEt.getText().toString();
             String email = emailEt.getText().toString();
+            String country = countryEt.getText().toString();
             // ...
 
         });
