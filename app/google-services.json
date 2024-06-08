@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858396526119",
+    "project_id": "mixmasterapp-a2a22",
+    "storage_bucket": "mixmasterapp-a2a22.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858396526119:android:fe56f5a02683f1ed81f002",
+        "android_client_info": {
+          "package_name": "com.example.mixmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz0eNXRdSJHH8174V8oYNNY7J2LnjCZRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

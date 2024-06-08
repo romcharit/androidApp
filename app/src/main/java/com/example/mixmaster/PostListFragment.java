@@ -48,8 +48,7 @@ public class PostListFragment extends Fragment {
             public void onItemClick(int pos) {
                 Log.d("TAG", "Row was clicked " + pos);
                 Post post = data.get(pos);
-                // change to userName ...
-                PostListFragmentDirections.ActionPostListFragmentToPostFragment action = PostListFragmentDirections.actionPostListFragmentToPostFragment(post.cocktailName);
+                PostListFragmentDirections.ActionPostListFragmentToPostFragment action = PostListFragmentDirections.actionPostListFragmentToPostFragment(post.userName);
                 Navigation.findNavController(view).navigate(action);
             }
         });
