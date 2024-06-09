@@ -58,7 +58,7 @@ public class PostListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        reloadData();
+//       reloadData();
     }
 
     void reloadData() {

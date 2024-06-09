@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Post {
     @PrimaryKey
+    @NonNull
     public String cocktailName = "";
     public String cocktailDescription = "";
     public String cocktailRecipe= "";
