@@ -17,7 +17,7 @@ public interface PostDao {
     Post getPostByUserName(String postUserName);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(Post... post);
+    void insert(Post post);
 
     @Delete
     void delete(Post post);

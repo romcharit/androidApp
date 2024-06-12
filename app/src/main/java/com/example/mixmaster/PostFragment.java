@@ -22,7 +22,7 @@ public class PostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post, container, false);
 
         // gets the userName by Argument from PostListFragment Navigation
-        userName = PostFragmentArgs.fromBundle(getArguments()).getTitleUserName();
+//        userName = PostFragmentArgs.fromBundle(getArguments()).getTitleUserName();
 
         TextView userNameTv = view.findViewById(R.id.post_user_name);
         if (userName != null){

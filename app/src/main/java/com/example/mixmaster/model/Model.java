@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 public class Model {
     private static final Model instance = new Model();
     private Executor executor = Executors.newSingleThreadExecutor();
-    Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+    private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     public static Model getInstance() {
         return instance;
@@ -43,7 +43,7 @@ public class Model {
     }
     public void addPost(Post post, AddPostListener listener){
         executor.execute(()->{
-            localDb.postDao().insertAll(post);
+            localDb.postDao().insert(post);
             mainHandler.post(()->{
                listener.onComplete();
             });

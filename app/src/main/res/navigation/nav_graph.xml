@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/postListFragment"
         android:name="com.example.mixmaster.PostListFragment"
-        android:label="fragment_post_list"
-        tools:layout="@layout/fragment_post_list" >
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_post_list">
         <action
             android:id="@+id/action_postListFragment_to_postFragment"
             app:destination="@id/postFragment" />
@@ -22,4 +22,9 @@
             android:name="titleUserName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.example.mixmaster.CreatePostFragment"
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_create_post" />
 </navigation>

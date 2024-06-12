@@ -28,19 +28,28 @@ import java.util.List;
 public class PostListFragment extends Fragment {
 
     List<Post> data = new LinkedList<>();
-    PostRecyclerAdapter adapter;
     FragmentPostListBinding binding;
-
+    PostRecyclerAdapter adapter;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentPostListBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        RecyclerView list = binding.recyclerList;
+
+//        binding = FragmentPostListBinding.inflate(inflater, container, false);
+//        View view = binding.getRoot();
+//        RecyclerView list = binding.recyclerList;
+
+        View view = inflater.inflate(R.layout.fragment_post_list,container,false);
+        Model.getInstance().getAllPosts((postList)->{
+            data = postList;
+            adapter.setData(data);
+        });
+        RecyclerView list = view.findViewById(R.id.post_list_recView);
         list.setHasFixedSize(true);
+
+
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        PostRecyclerAdapter adapter = new PostRecyclerAdapter(getLayoutInflater(),data);
+        adapter = new PostRecyclerAdapter(getLayoutInflater(),data);
         list.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new PostRecyclerAdapter.OnItemClickListener() {
@@ -59,14 +68,18 @@ public class PostListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 //       reloadData();
-    }
-
-    void reloadData() {
-        binding.progressBar.setVisibility(View.VISIBLE);
         Model.getInstance().getAllPosts((postList)->{
             data = postList;
             adapter.setData(data);
-            binding.progressBar.setVisibility(View.GONE);
         });
     }
+//
+//    void reloadData() {
+//        binding.progressBar.setVisibility(View.VISIBLE);
+//        Model.getInstance().getAllPosts((postList)->{
+//            data = postList;
+//            adapter.setData(data);
+//            binding.progressBar.setVisibility(View.GONE);
+//        });
+//    }
 }

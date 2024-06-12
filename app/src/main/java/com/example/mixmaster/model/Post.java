@@ -8,19 +8,21 @@ import androidx.room.PrimaryKey;
 public class Post {
     @PrimaryKey
     @NonNull
+    public String id = "";
+    public String userName = "";
     public String cocktailName = "";
     public String cocktailDescription = "";
     public String cocktailRecipe= "";
-    public String userName = "";
     public String avatarUrl = "";
     public String cocktailUrl = "";
     public String likeUrl = "";
 
     public Post(){}
 
-    public Post(String userName, String cocktailName, String cocktailDescription,
+    public Post(String id, String userName, String cocktailName, String cocktailDescription,
                 String cocktailRecipe, String avatarUrl, String cocktailUrl, String likeUrl)
     {
+        this.id = id;
         this.userName = userName;
         this.cocktailName = cocktailName;
         this.cocktailDescription = cocktailDescription;
@@ -28,6 +30,15 @@ public class Post {
         this.avatarUrl = avatarUrl;
         this.cocktailUrl = cocktailUrl;
         this.likeUrl = likeUrl;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
     }
 
     public String getUserName() {
