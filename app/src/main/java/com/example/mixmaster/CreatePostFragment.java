@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.mixmaster.model.Model;
 import com.example.mixmaster.model.Post;
 
+import java.util.UUID;
+
 
 public class CreatePostFragment extends Fragment {
 
@@ -39,8 +41,8 @@ public class CreatePostFragment extends Fragment {
             String cocktailName = cocktailNameEt.getText().toString();
             String cocktailDescription = cocktailDescriptionEt.getText().toString();
             String cocktailRecipe = cocktailRecipeEt.getText().toString();
-
-            Post post = new Post("123i1u2gy3uy123t21"," ", cocktailName,cocktailDescription,cocktailRecipe, " ", " ", " ");
+            String id = UUID.randomUUID().toString();
+            Post post = new Post(id," ", cocktailName,cocktailDescription,cocktailRecipe, " ", " ", " ");
 
 
             Model.getInstance().addPost(post,()->{
