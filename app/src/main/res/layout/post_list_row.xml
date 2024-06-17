@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_list_row"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/cocktail_img_plr"
@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName_plr"
-        app:srcCompat="@drawable/negroni_image" />
+        app:srcCompat="@drawable/cocktail_blank" />
 
     <TextView
         android:id="@+id/cocktail_name_plr"

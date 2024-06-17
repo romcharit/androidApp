@@ -13,18 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mixmaster.model.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 
 class PostViewHolder extends RecyclerView.ViewHolder {
     TextView userNameTv;
     TextView cocktailNameTv;
-    ImageView avatarIv;
-    ImageView cocktailImgIv;
+    ImageView avatarImg;
+    ImageView cocktailImg;
     ImageButton likeIbtn;
-
     List<Post> data;
 
     public PostViewHolder(@NonNull View itemView, List<Post> data, PostRecyclerAdapter.OnItemClickListener listener) {
@@ -32,9 +33,10 @@ class PostViewHolder extends RecyclerView.ViewHolder {
         this.data = data;
         userNameTv = itemView.findViewById(R.id.userName_plr);
         cocktailNameTv = itemView.findViewById(R.id.cocktail_name_plr);
-        avatarIv = itemView.findViewById((R.id.avatar_plr));
-        cocktailImgIv = itemView.findViewById(R.id.cocktail_img_plr);
+        avatarImg = itemView.findViewById((R.id.avatar_plr));
+        cocktailImg = itemView.findViewById(R.id.cocktail_img_plr);
         likeIbtn = itemView.findViewById(R.id.like_btn_plr);
+
         likeIbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +54,15 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Post post, int pos) {
+
         userNameTv.setText(post.userName);
         cocktailNameTv.setText((post.cocktailName));
+        
+        if (!Objects.equals(post.getCocktailUrl(), " ")) {
+            Picasso.get().load(post.getCocktailUrl()).placeholder(R.drawable.cocktail_blank).into(cocktailImg);
+        } else{
+            cocktailImg.setImageResource(R.drawable.cocktail_blank);
+        }
         //avatarTv
         //cocktailImgTv
         //likeTv

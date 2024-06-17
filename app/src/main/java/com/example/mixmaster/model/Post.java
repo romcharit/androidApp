@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class Post {
     @PrimaryKey
@@ -30,6 +33,33 @@ public class Post {
         this.avatarUrl = avatarUrl;
         this.cocktailUrl = cocktailUrl;
         this.likeUrl = likeUrl;
+    }
+
+    public static Post fromJson(Map<String,Object> json){
+        String id = (String)json.get("id");
+        String username = (String)json.get("username");
+        String cocktailName = (String)json.get("cocktailName");
+        String description = (String)json.get("description");
+        String recipe = (String)json.get(("recipe"));
+        String avatar = (String)json.get(("avatar"));
+        String cocktailImg = (String)json.get(("cocktailImg"));
+        String like = (String)json.get(("like"));
+        Post post = new Post(id,username,cocktailName,description,recipe,avatar,cocktailImg,like);
+        return post;
+    }
+
+    public Map<String,Object> toJson()
+    {
+        Map<String, Object> json = new HashMap<>();
+        json.put("id", getId());
+        json.put("username", getUserName());
+        json.put("cocktailName", getCocktailName());
+        json.put("description", getCocktailDescription());
+        json.put("recipe", getCocktailRecipe());
+        json.put("avatar", getAvatarUrl());
+        json.put("cocktailImg", getCocktailUrl());
+        json.put("like", getLikeUrl());
+        return json;
     }
 
     @NonNull

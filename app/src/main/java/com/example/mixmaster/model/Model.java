@@ -2,6 +2,7 @@ package com.example.mixmaster.model;
 
 
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -18,6 +19,7 @@ public class Model {
     private Executor executor = Executors.newSingleThreadExecutor();
     private Handler mainHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     private FirebaseModel firebaseModel = new FirebaseModel();
+    AppLocalDbRepository localDb = AppLocalDb.getAppDb();
 
     public static Model getInstance() {
         return instance;
@@ -25,12 +27,10 @@ public class Model {
     private Model(){
     }
 
-    AppLocalDbRepository localDb = AppLocalDb.getAppDb();
-
-    public interface GetAllPostsListener{
-        void onComplete(List<Post> data);
+    public interface Listener<T>{
+        void onComplete(T data);
     }
-    public void getAllPosts(GetAllPostsListener callback){
+    public void getAllPosts(Listener<List<Post>> callback){
         firebaseModel.getAllPosts(callback);
 //        executor.execute(()->{
 //            List<Post> data = localDb.postDao().getAll();
@@ -45,10 +45,7 @@ public class Model {
 //        });
     }
 
-    public interface AddPostListener{
-        void onComplete();
-    }
-    public void addPost(Post post, AddPostListener listener){
+    public void addPost(Post post, Listener<Void> listener){
         firebaseModel.addPost(post,listener);
 //        executor.execute(()->{
 //            localDb.postDao().insert(post);
@@ -62,6 +59,12 @@ public class Model {
 //            });
 //        });
     }
+
+    public void uploadImage (String name, Bitmap bitmap, Listener<String> listener)
+    {
+        firebaseModel.uploadImage(name,bitmap,listener);
+    }
+
 
 
 }
