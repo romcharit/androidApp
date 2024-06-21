@@ -1,8 +1,15 @@
 package com.example.mixmaster.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.example.mixmaster.MyApplication;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +26,7 @@ public class Post {
     public String avatarUrl = "";
     public String cocktailUrl = "";
     public String likeUrl = "";
+    public Long lastUpdated;
 
     public Post(){}
 
@@ -35,30 +43,66 @@ public class Post {
         this.likeUrl = likeUrl;
     }
 
+    static final String ID = "id";
+    static final String USER_NAME = "username";
+    static final String COCKTAIL_NAME = "cocktailName";
+    static final String DESCRIPTION = "description";
+    static final String RECIPE = "recipe";
+    static final String AVATAR = "avatar";
+    static final String COCKTAIL_IMAGE = "cocktailImg";
+    static final String LIKE = "like";
+    static final String COLLECTION = "posts";
+    static final String LAST_UPDATED = "lastUpdated";
+    static final String LOCAL_LAST_UPDATED = "posts_local_last_updated";
+
+
     public static Post fromJson(Map<String,Object> json){
-        String id = (String)json.get("id");
-        String username = (String)json.get("username");
-        String cocktailName = (String)json.get("cocktailName");
-        String description = (String)json.get("description");
-        String recipe = (String)json.get(("recipe"));
-        String avatar = (String)json.get(("avatar"));
-        String cocktailImg = (String)json.get(("cocktailImg"));
-        String like = (String)json.get(("like"));
+        String id = (String)json.get(ID);
+        String username = (String)json.get(USER_NAME);
+        String cocktailName = (String)json.get(COCKTAIL_NAME);
+        String description = (String)json.get(DESCRIPTION);
+        String recipe = (String)json.get((RECIPE));
+        String avatar = (String)json.get((AVATAR));
+        String cocktailImg = (String)json.get((COCKTAIL_IMAGE));
+        String like = (String)json.get((LIKE));
         Post post = new Post(id,username,cocktailName,description,recipe,avatar,cocktailImg,like);
-        return post;
+       try{
+           Timestamp time = (Timestamp) json.get(LAST_UPDATED);
+           post.setLastUpdated(time.getSeconds());
+       }catch (Exception e) {
+
+       }
+       return post;
+    }
+
+    public static Long getLocalLastUpdate() {
+        SharedPreferences sharedPef = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return sharedPef.getLong(LOCAL_LAST_UPDATED,0);
+    }
+
+    public static void setLocalLastUpdate(Long time) {
+//        SharedPreferences sharedPef = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPef.edit();
+//        editor.putLong("postsLocalLastUpdated", time);
+//        editor.commit();
+
+        MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
+        .edit().putLong(LOCAL_LAST_UPDATED, time).commit();
     }
 
     public Map<String,Object> toJson()
     {
         Map<String, Object> json = new HashMap<>();
-        json.put("id", getId());
-        json.put("username", getUserName());
-        json.put("cocktailName", getCocktailName());
-        json.put("description", getCocktailDescription());
-        json.put("recipe", getCocktailRecipe());
-        json.put("avatar", getAvatarUrl());
-        json.put("cocktailImg", getCocktailUrl());
-        json.put("like", getLikeUrl());
+        json.put(ID, getId());
+        json.put(USER_NAME, getUserName());
+        json.put(COCKTAIL_NAME, getCocktailName());
+        json.put(DESCRIPTION, getCocktailDescription());
+        json.put(RECIPE, getCocktailRecipe());
+        json.put(AVATAR, getAvatarUrl());
+        json.put(COCKTAIL_IMAGE, getCocktailUrl());
+        json.put(LIKE, getLikeUrl());
+        // time update
+        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
     }
 
@@ -123,5 +167,13 @@ public class Post {
 
     public void setCocktailRecipe(String cocktailRecipe) {
         this.cocktailRecipe = cocktailRecipe;
+    }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

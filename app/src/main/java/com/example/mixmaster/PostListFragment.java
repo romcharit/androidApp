@@ -1,9 +1,11 @@
 package com.example.mixmaster;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +24,9 @@ import java.util.List;
 
 
 public class PostListFragment extends Fragment {
-
-    List<Post> data = new LinkedList<>();
     FragmentPostListBinding binding;
     PostRecyclerAdapter adapter;
+    PostListFragmentViewModel viewModel;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,39 +34,45 @@ public class PostListFragment extends Fragment {
         binding = FragmentPostListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-//        Model.getInstance().getAllPosts((postList)->{
-//            data = postList;
-//            adapter.setData(data);
-//        });
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PostRecyclerAdapter(getLayoutInflater(),data);
+        adapter = new PostRecyclerAdapter(getLayoutInflater(),viewModel.getData().getValue());
         binding.recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new PostRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int pos) {
                 Log.d("TAG", "Row was clicked " + pos);
-                Post post = data.get(pos);
+                Post post = viewModel.getData().getValue().get(pos);
                 PostListFragmentDirections.ActionPostListFragmentToPostFragment action = PostListFragmentDirections.actionPostListFragmentToPostFragment(post.userName);
                 Navigation.findNavController(view).navigate(action);
             }
+        });
+
+        binding.progressBar.setVisibility(View.GONE);
+
+        viewModel.getData().observe(getViewLifecycleOwner(), list->{
+            adapter.setData(list);
+        });
+
+        Model.getInstance().EventPostsListLoadingState.observe(getViewLifecycleOwner(),status->{
+            binding.swipeRefresh.setRefreshing(status == Model.LoadingState.LOADING);
+        });
+
+        binding.swipeRefresh.setOnRefreshListener(()->{
+            reloadData();
         });
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        reloadData();
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(PostListFragmentViewModel.class);
     }
 
     void reloadData() {
-        binding.progressBar.setVisibility(View.VISIBLE);
-        Model.getInstance().getAllPosts((postList)->{
-            data = postList;
-            adapter.setData(data);
-            binding.progressBar.setVisibility(View.GONE);
-        });
+//        binding.progressBar.setVisibility(View.VISIBLE);
+        Model.getInstance().refreshAllPosts();
     }
 }
