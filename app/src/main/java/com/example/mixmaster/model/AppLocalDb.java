@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import com.example.mixmaster.MyApplication;
 
 
-@Database(entities = {Post.class}, version = 105)
+@Database(entities = {Post.class}, version = 110)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract PostDao postDao();
 }

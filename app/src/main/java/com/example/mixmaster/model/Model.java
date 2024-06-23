@@ -86,10 +86,14 @@ public class Model {
         });
     }
 
-    public void uploadImage (String name, Bitmap bitmap, Listener<String> listener)
-    {
+    public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
         firebaseModel.uploadImage(name,bitmap,listener);
     }
+
+    public void signUp(User newUser, String password, Listener<Void> listener) {
+        firebaseModel.signUp(newUser,password,listener);
+    }
+
 
 
 

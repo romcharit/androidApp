@@ -56,7 +56,8 @@ public class Post {
     static final String LOCAL_LAST_UPDATED = "posts_local_last_updated";
 
 
-    public static Post fromJson(Map<String,Object> json){
+    public static Post fromJson(Map<String,Object> json)
+    {
         String id = (String)json.get(ID);
         String username = (String)json.get(USER_NAME);
         String cocktailName = (String)json.get(COCKTAIL_NAME);
@@ -65,13 +66,14 @@ public class Post {
         String avatar = (String)json.get((AVATAR));
         String cocktailImg = (String)json.get((COCKTAIL_IMAGE));
         String like = (String)json.get((LIKE));
+
         Post post = new Post(id,username,cocktailName,description,recipe,avatar,cocktailImg,like);
+
        try{
            Timestamp time = (Timestamp) json.get(LAST_UPDATED);
            post.setLastUpdated(time.getSeconds());
-       }catch (Exception e) {
+       }catch (Exception e) {}
 
-       }
        return post;
     }
 

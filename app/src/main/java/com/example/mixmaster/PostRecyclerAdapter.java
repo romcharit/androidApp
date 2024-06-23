@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.zip.Inflater;
 
 
+// Post View Holder
 class PostViewHolder extends RecyclerView.ViewHolder {
     TextView userNameTv;
     TextView cocktailNameTv;
@@ -63,23 +64,18 @@ class PostViewHolder extends RecyclerView.ViewHolder {
         } else{
             cocktailImg.setImageResource(R.drawable.cocktail_blank);
         }
-        //avatarTv
-        //cocktailImgTv
-        //likeTv
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
-
     }
+
 }
 
-// Adapter - makes the rows of the list
+
+// Post Adapter - makes the rows of the list
 public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
+    LayoutInflater inflater;
+    List<Post> data;
     OnItemClickListener listener;
+
     public static interface OnItemClickListener {
         void onItemClick(int pos);
     }
@@ -87,9 +83,6 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
-
-    LayoutInflater inflater;
-    List<Post> data;
 
     public void setData(List<Post> data) {
         this.data = data;
@@ -104,7 +97,6 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @NonNull
     @Override
     public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = inflater.inflate(R.layout.post_list_row, parent, false);
         return new PostViewHolder(view,data,listener);
     }
@@ -118,7 +110,6 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public int getItemCount() {
         if (data== null) return 0;
-
         return data.size();
     }
 }

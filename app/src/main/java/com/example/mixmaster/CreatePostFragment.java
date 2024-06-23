@@ -50,7 +50,6 @@ public class CreatePostFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentCreatePostBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-//        View view = inflater.inflate(R.layout.fragment_create_post, container, false);
 
         TextView titleTv = view.findViewById(R.id.title_create_post);
         ImageView cocktailImg = view.findViewById(R.id.cocktail_img_create_post);

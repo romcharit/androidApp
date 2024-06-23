@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/postListFragment">
+    app:startDestination="@id/signUpFragment">
     <fragment
         android:id="@+id/postListFragment"
         android:name="com.example.mixmaster.PostListFragment"
@@ -27,4 +27,9 @@
         android:name="com.example.mixmaster.CreatePostFragment"
         android:label="Mix Master"
         tools:layout="@layout/fragment_create_post" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.mixmaster.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
