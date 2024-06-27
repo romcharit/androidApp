@@ -1,64 +1,101 @@
 package com.example.mixmaster;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.mixmaster.databinding.FragmentMyProfileBinding;
+import com.example.mixmaster.model.Model;
+import com.example.mixmaster.model.User;
+import com.squareup.picasso.Picasso;
+
+
 public class MyProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MyProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyProfileFragment newInstance(String param1, String param2) {
-        MyProfileFragment fragment = new MyProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    FragmentMyProfileBinding binding;
+    UserRecyclerAdapter adapter;
+    MyProfileViewModel myProfileViewModel;
+    UserViewModel userViewModel;
+    View view;
+    User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_profile, container, false);
+        binding = FragmentMyProfileBinding.inflate(inflater,container,false);
+        view = binding.getRoot();
+        binding.recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        userViewModel.getUser().observe(getViewLifecycleOwner(),newUser->{
+//            if (newUser != null) {
+//                user = newUser;
+//                setProfile();
+//            }
+            user = newUser;
+            setProfile();
+        });
+
+        return view;
     }
+
+
+        @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        myProfileViewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+    }
+
+    public void setProfile(){
+
+//        binding.userNameMyProfile.setText(user.userName);
+//        binding.emailMyProfile.setText(user.email);
+//        binding.countryMyProfile.setText(user.country);
+//        binding.avatarMyProfile.setImageResource(R.drawable.profile_pic);
+
+        // Edit Btn
+//        binding.editButton.setOnClickListener(Navigation.createNavigateOnClickListener
+//                (R.id.action_profileFragment_to_editProfileFragment));
+
+        // LogOut Btn
+        binding.logOutBtnMyProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Logout")
+                        .setMessage("Are you sure you want to log out?")
+                        .setPositiveButton("yes", (dialog,which)->{
+                            Model.getInstance().logOut();
+                            Intent intent=new Intent(getActivity(),LoginActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        }).setNegativeButton("No",(dialog,which)->{})
+                        .create().show();
+            }
+        });
+
+
+//        if (!user.avatar.equals(" ")) {
+//            Picasso.get().load(user.avatar).into(binding.avatarMyProfile);
+//        }else {
+//            binding.avatarMyProfile.setImageResource(R.drawable.profile_pic);
+//        }
+
+    }
+
 }

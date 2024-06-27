@@ -3,15 +3,31 @@ package com.example.mixmaster.model;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.mixmaster.MyApplication;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class User {
 
-    public String userName;
-    public String avatar;
-    public String email;
-    public String country;
+@Entity
+public class User {
+    @PrimaryKey
+    @NonNull
+    public String email = "";
+
+    public String userName = "";
+    public String avatar = "";
+    public String country = "";
+    public Long lastUpdated;
 
     public User(){}
 
@@ -26,13 +42,20 @@ public class User {
     static final String AVATAR = "avatar";
     static final String EMAIL = "email";
     static final String COUNTRY = "country";
+    static final String COLLECTION = "users";
+    static final String LAST_UPDATED = "lastUpdated";
+    static final String LOCAL_LAST_UPDATED = "users_local_last_updated";
 
-    public static User fromJson(Map<String,Object> json){
+    public static User fromJson(Map<String,Object> json) {
         String username = (String)json.get(USER_NAME);
         String avatar = (String)json.get(AVATAR);
         String email = (String)json.get(EMAIL);
         String country = (String)json.get(COUNTRY);
         User user = new User(username, avatar, email, country);
+        try{
+            Timestamp time = (Timestamp) json.get(LAST_UPDATED);
+            user.setUserLastUpdated(time.getSeconds());
+        }catch (Exception e) {}
         return user;
     }
 
@@ -42,7 +65,28 @@ public class User {
         json.put(AVATAR, user.getAvatar());
         json.put(EMAIL, user.getEmail());
         json.put(COUNTRY, user.getCountry());
+        // time update
+        json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
+    }
+
+    public static Long getUserLocalLastUpdate() {
+        SharedPreferences sharedPef = MyApplication.getMyContext()
+                .getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        return sharedPef.getLong(LOCAL_LAST_UPDATED,0);
+    }
+
+    public static void setUserLocalLastUpdate(Long time) {
+        MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                .edit().putLong(LOCAL_LAST_UPDATED, time).commit();
+    }
+
+    public Long getUserLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setUserLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public String getUserName() {
@@ -61,11 +105,12 @@ public class User {
         this.avatar = avatar;
     }
 
+    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 

@@ -16,6 +16,7 @@
         android:icon="@drawable/heart_circle_icon"
         android:title="LikedPosts" />
     <item
+        android:id="@+id/myProfileFragment"
         android:icon="@drawable/my_profile_img"
         android:title="MyProfile" />
 

@@ -1,5 +1,6 @@
 package com.example.mixmaster;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -26,10 +27,12 @@ import com.example.mixmaster.model.User;
 
 import java.util.UUID;
 
+
 public class SignUpFragment extends Fragment {
 
     FragmentSignUpBinding binding;
     ActivityResultLauncher<String> galleryLauncher;
+    ActivityResultLauncher<Void> cameraLauncher;
     Boolean isAvatarSelected = false;
 
     @Override
@@ -41,7 +44,16 @@ public class SignUpFragment extends Fragment {
             public void onActivityResult(Uri o) {
                 if (o!=null){
                     binding.signupAvatar.setImageURI(o);
-                    isAvatarSelected=true;
+                    isAvatarSelected = true;
+                }
+            }
+        });
+        cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
+            @Override
+            public void onActivityResult(Bitmap o) {
+                if (o!= null) {
+                    binding.signupAvatar.setImageBitmap(o);
+                    isAvatarSelected = true;
                 }
             }
         });
@@ -73,16 +85,20 @@ public class SignUpFragment extends Fragment {
 
                     User newUser = new User(userName, avatarUrl, email, country);
                     Model.getInstance().signUp(newUser, password, (unused) -> {
-
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
                     });
                 });
             }
-            else return;
         });
 
-
         binding.signupEditAvatar.setOnClickListener(view1->{
-            galleryLauncher.launch("/image/*");
+            galleryLauncher.launch("image/*");
+        });
+
+        binding.signupCameraBtn.setOnClickListener(view1->{
+            cameraLauncher.launch(null);
         });
 
         return view;

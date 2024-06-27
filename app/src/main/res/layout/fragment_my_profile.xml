@@ -7,63 +7,85 @@
     tools:context=".MyProfileFragment">
 
     <ImageView
-        android:id="@+id/my_profile_avatar"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="76dp"
+        android:id="@+id/avatar_my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/profile_pic" />
 
     <TextView
-        android:id="@+id/my_profile_user_name"
-        android:layout_width="126dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="52dp"
-        android:gravity="center"
-        android:text="UserName"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_profile_avatar" />
-
-    <TextView
-        android:id="@+id/my_profile_email"
-        android:layout_width="109dp"
-        android:layout_height="36dp"
+        android:id="@+id/userName_my_profile"
+        android:layout_width="341dp"
+        android:layout_height="52dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Email"
-        android:textSize="20sp"
+        android:text="UserName"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_profile_user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/avatar_my_profile" />
 
     <TextView
-        android:id="@+id/my_profile_country"
-        android:layout_width="125dp"
-        android:layout_height="36dp"
+        android:id="@+id/email_my_profile"
+        android:layout_width="341dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="email@email.com"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName_my_profile" />
+
+    <TextView
+        android:id="@+id/country_my_profile"
+        android:layout_width="341dp"
+        android:layout_height="52dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Country"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_my_profile" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="410dp"
+        android:layout_height="158dp"
+        android:layout_marginTop="39dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/country_my_profile" />
+
+    <TextView
+        android:id="@+id/log_out_btn_my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Logout"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_profile_email" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/my_profile_edit_btn"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="167dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="248dp"
-        android:background="@android:drawable/divider_horizontal_textfield"
+    <TextView
+        android:id="@+id/Edit_profile_btn_my_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Edit Profile"
-        android:textColor="#090808"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_profile_country" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

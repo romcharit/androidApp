@@ -77,17 +77,12 @@ public class Post {
        return post;
     }
 
-    public static Long getLocalLastUpdate() {
+    public static Long getPostLocalLastUpdate() {
         SharedPreferences sharedPef = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
         return sharedPef.getLong(LOCAL_LAST_UPDATED,0);
     }
 
-    public static void setLocalLastUpdate(Long time) {
-//        SharedPreferences sharedPef = MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPef.edit();
-//        editor.putLong("postsLocalLastUpdated", time);
-//        editor.commit();
-
+    public static void setPostLocalLastUpdate(Long time) {
         MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
         .edit().putLong(LOCAL_LAST_UPDATED, time).commit();
     }

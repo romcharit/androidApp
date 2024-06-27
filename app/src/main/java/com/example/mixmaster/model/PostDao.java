@@ -11,8 +11,12 @@ import java.util.List;
 
 @Dao
 public interface PostDao {
+
     @Query("select * from Post")
     LiveData<List<Post>> getAll();
+
+    @Query("select * from Post where userName = :username")
+    LiveData<List<Post>> getUserPosts(String username);
 
     @Query("select * from Post where userName = :postUserName")
     Post getPostByUserName(String postUserName);

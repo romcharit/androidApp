@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="UserProfileFragment">
+    tools:context=".UserProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/avatar_user_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/profile_pic" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/userName_user_profile"
         android:layout_width="341dp"
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
@@ -28,10 +28,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+        app:layout_constraintTop_toBottomOf="@+id/avatar_user_profile" />
 
     <TextView
-        android:id="@+id/userpage_email"
+        android:id="@+id/email_user_profile"
         android:layout_width="341dp"
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
@@ -41,10 +41,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/userName_user_profile" />
 
     <TextView
-        android:id="@+id/userpage_country"
+        android:id="@+id/country_user_profile"
         android:layout_width="341dp"
         android:layout_height="52dp"
         android:layout_marginTop="20dp"
@@ -53,7 +53,7 @@
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userpage_email" />
+        app:layout_constraintTop_toBottomOf="@+id/email_user_profile" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -62,6 +62,6 @@
         android:layout_marginTop="39dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userpage_country" />
+        app:layout_constraintTop_toBottomOf="@+id/country_user_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
