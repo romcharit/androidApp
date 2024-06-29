@@ -23,7 +23,6 @@ public class User {
     @PrimaryKey
     @NonNull
     public String email = "";
-
     public String userName = "";
     public String avatar = "";
     public String country = "";

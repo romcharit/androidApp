@@ -53,6 +53,12 @@ public class Model {
         return postList;
     }
 
+    LiveData<Post> post;
+    public LiveData<Post> getPostById(String id) {
+        post = localDb.postDao().getPostById(id);
+        return post;
+    }
+
     public void refreshAllPosts(){
         EventPostsListLoadingState.setValue(LoadingState.LOADING);
         // get local last update

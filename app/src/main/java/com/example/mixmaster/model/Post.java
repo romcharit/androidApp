@@ -20,12 +20,14 @@ public class Post {
     @NonNull
     public String id = "";
     public String userName = "";
+    public String avatarUrl = "";
+
     public String cocktailName = "";
     public String cocktailDescription = "";
     public String cocktailRecipe= "";
-    public String avatarUrl = "";
     public String cocktailUrl = "";
     public String likeUrl = "";
+
     public Long lastUpdated;
 
     public Post(){}

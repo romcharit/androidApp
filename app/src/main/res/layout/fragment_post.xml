@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/post_publish_date"
         android:layout_width="135dp"
         android:layout_height="42dp"
         android:layout_marginTop="10dp"
@@ -39,30 +39,30 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/post_username" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/post_recipe"
         android:layout_width="325dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"
         android:text="Recipe..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/post_description" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/post_description"
         android:layout_width="325dp"
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:text="Description..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintTop_toBottomOf="@+id/post_publish_date" />
 
     <TextView
-        android:id="@+id/post_user_name"
+        android:id="@+id/post_username"
         android:layout_width="135dp"
         android:layout_height="42dp"
         android:layout_marginTop="10dp"

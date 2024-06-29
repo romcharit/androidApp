@@ -21,6 +21,9 @@ public interface PostDao {
     @Query("select * from Post where userName = :postUserName")
     Post getPostByUserName(String postUserName);
 
+    @Query("select * from Post where id=:id")
+    LiveData<Post> getPostById(String id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Post post);
 

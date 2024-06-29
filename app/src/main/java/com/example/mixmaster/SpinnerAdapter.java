@@ -19,6 +19,4 @@ public class SpinnerAdapter {
         return CocktailCategoriesSpinnerAdapter;
     }
 
-
-
 }

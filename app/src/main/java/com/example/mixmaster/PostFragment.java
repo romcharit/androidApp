@@ -9,33 +9,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mixmaster.databinding.FragmentPostBinding;
+import com.example.mixmaster.model.Model;
+import com.squareup.picasso.Picasso;
+
 
 public class PostFragment extends Fragment {
 
-    TextView userNameTv;
-    String userName;
+    String postId;
+    FragmentPostBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_post, container, false);
+        binding = FragmentPostBinding.inflate(inflater,container,false);
+        View view = binding.getRoot();
 
-        // gets the userName by Argument from PostListFragment Navigation
-//        userName = PostFragmentArgs.fromBundle(getArguments()).getTitleUserName();
+        // gets the post id by Argument from PostListFragment Navigation
+        postId = PostFragmentArgs.fromBundle(getArguments()).getPostId();
 
-        TextView userNameTv = view.findViewById(R.id.post_user_name);
-        if (userName != null){
-            userNameTv.setText(userName);
-        }
+        Model.getInstance().getPostById(postId).observe(getViewLifecycleOwner(), (post)->{
+            binding.postUsername.setText(post.userName);
+            binding.postCocktailName.setText(post.cocktailName);
+            Picasso.get().load(post.cocktailUrl).into(binding.postCocktailImg);
+            binding.postDescription.setText(post.cocktailDescription);
+            binding.postRecipe.setText(post.cocktailRecipe);
+        });
 
         return view;
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
-        if (userName != null){
-            userNameTv.setText(userName);
-        }
-    }
 }
