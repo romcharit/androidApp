@@ -21,13 +21,11 @@ public class Post {
     public String id = "";
     public String userName = "";
     public String avatarUrl = "";
-
     public String cocktailName = "";
     public String cocktailDescription = "";
     public String cocktailRecipe= "";
     public String cocktailUrl = "";
     public String likeUrl = "";
-
     public Long lastUpdated;
 
     public Post(){}

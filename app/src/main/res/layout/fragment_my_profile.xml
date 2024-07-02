@@ -8,36 +8,34 @@
 
     <ImageView
         android:id="@+id/avatar_my_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_width="207dp"
+        android:layout_height="198dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/userName_my_profile"
-        android:layout_width="341dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="UserName"
-        android:textSize="28sp"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar_my_profile" />
 
     <TextView
         android:id="@+id/email_my_profile"
-        android:layout_width="341dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="email@email.com"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,30 +43,33 @@
 
     <TextView
         android:id="@+id/country_my_profile"
-        android:layout_width="341dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Country"
-        android:textSize="28sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_my_profile" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="410dp"
-        android:layout_height="158dp"
-        android:layout_marginTop="39dp"
+        android:layout_width="412dp"
+        android:layout_height="361dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_my_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/country_my_profile"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/log_out_btn_my_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:text="Logout"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,13 +78,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/Edit_profile_btn_my_profile"
+        android:id="@+id/edit_btn_my_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Edit Profile"
+        android:layout_marginTop="16dp"
+        android:text="Edit"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

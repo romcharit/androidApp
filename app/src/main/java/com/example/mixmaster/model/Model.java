@@ -10,12 +10,14 @@ import android.util.Log;
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -61,28 +63,62 @@ public class Model {
 
     public void refreshAllPosts(){
         EventPostsListLoadingState.setValue(LoadingState.LOADING);
-        // get local last update
-        Long localLastUpdate = Post.getPostLocalLastUpdate();
-        // get all updated record from firebase since local last update
-        firebaseModel.getAllPostsSince(localLastUpdate,list->{
+        Long localLastUpdated = Post.getPostLocalLastUpdate();
+        firebaseModel.getAllPostsSince(localLastUpdated, (posts)-> {
             executor.execute(()->{
-                Log.d("TAG", "firebase return : " + list.size());
-                Long time = localLastUpdate;
-                for(Post post : list) {
-                    // insert new records into ROOM
+                Long time=localLastUpdated;
+                for (Post post : posts) {
                     localDb.postDao().insert(post);
-                    if (time < post.getLastUpdated()){
-                        time = post.getLastUpdated();
+                    if (post.lastUpdated > time) {
+                        time=post.lastUpdated;
                     }
                 }
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                // update local last update
                 Post.setPostLocalLastUpdate(time);
                 EventPostsListLoadingState.postValue(LoadingState.NOT_LOADING);
+            });
+        });
+    }
+
+//    public void refreshAllPosts(){
+//        EventPostsListLoadingState.setValue(LoadingState.LOADING);
+//        // get local last update
+//        Long localLastUpdate = Post.getPostLocalLastUpdate();
+//        // get all updated record from firebase since local last update
+//        firebaseModel.getAllPostsSince(localLastUpdate,list->{
+//            executor.execute(()->{
+//                Log.d("TAG", "firebase return : " + list.size());
+//                Long time = localLastUpdate;
+//                for(Post post : list) {
+//                    // insert new records into ROOM
+//                    localDb.postDao().insert(post);
+//                    if (time < post.getLastUpdated()){
+//                        time = post.getLastUpdated();
+//                    }
+//                }
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                // update local last update
+//                Post.setPostLocalLastUpdate(time);
+//                EventPostsListLoadingState.postValue(LoadingState.NOT_LOADING);
+//            });
+//        });
+//    }
+
+    public void refreshAllPostsNoProgressBar(){
+        Long localLastUpdated = Post.getPostLocalLastUpdate();
+        firebaseModel.getAllPostsSince(localLastUpdated,(posts)->{
+            executor.execute(()->{
+                Long time = localLastUpdated;
+                for (Post post : posts) {
+                    localDb.postDao().insert(post);
+                    if (post.lastUpdated > time) {
+                        time=post.lastUpdated;
+                    }
+                }
+                Post.setPostLocalLastUpdate(time);
             });
         });
     }
@@ -92,6 +128,20 @@ public class Model {
             refreshAllPosts();
             listener.onComplete(null);
         });
+    }
+
+    public void updatePost(Post post,Listener<Void> listener) {
+        firebaseModel.updatePost(post,listener);
+        refreshAllPosts();
+    }
+
+    public void deletePost(Post post, Listener<Void> listener) {
+        firebaseModel.deletePost(post);
+        executor.execute(()->{
+            localDb.postDao().delete(post);
+            mainHandler.post(()->{listener.onComplete(null);});
+        });
+        refreshAllPosts();
     }
 
     public void uploadImage(String name, Bitmap bitmap, Listener<String> listener) {
@@ -107,7 +157,6 @@ public class Model {
     public void logIn(String username, String password, Listener<Boolean> listener) {
         firebaseModel.logIn(username,password,listener);
     }
-
 
     LiveData<User> otherUser;
     public LiveData<User> getOtherUser(String username) {
@@ -133,6 +182,37 @@ public class Model {
             refreshAllUsers();
         }
         return user;
+    }
+
+    public void updateUser(User user, Listener<Void> listener) {
+        firebaseModel.updateUser(user,listener);
+        refreshAllUsers();
+    }
+
+    public void getLikedPosts(List<String> likedPosts,Listener<List<Post>> listener) {
+        executor.execute(()->{
+            List<Post> data = localDb.postDao().getLikedPosts(likedPosts);
+            mainHandler.post(()->{listener.onComplete(data);});
+        });
+    }
+
+//    List<Post> searchPostsList;
+//    public List<Post> getPostsByDrinkName(String drinkName, Listener<List<Post>> listener){
+//        searchPostsList = localDb.postDao().getPostsByCocktailName(drinkName);
+//        return searchPostsList;
+//    }
+
+    public void getPostsByDrinkName(String drinkName, Listener<List<Post>> listener){
+        refreshAllPosts();
+        executor.execute(()->{
+            List<Post> data= localDb.postDao().getPostsByCocktailName(drinkName);
+            mainHandler.post(()->listener.onComplete(data));
+        });
+    }
+
+    public void updateLikedPosts(User user) {
+        firebaseModel.updateLikedPosts(user);
+        refreshAllPostsNoProgressBar();
     }
 
     public void refreshAllUsers(){

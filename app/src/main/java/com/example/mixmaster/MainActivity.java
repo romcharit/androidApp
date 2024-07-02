@@ -62,11 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         Set<Integer> topLevelDestinations = new HashSet<>();
         topLevelDestinations.add(R.id.postListFragment);
-//        topLevelDestinations.add(R.id.categoryFragment);
+        topLevelDestinations.add(R.id.searchFragment);
         topLevelDestinations.add(R.id.createPostFragment);
-//        topLevelDestinations.add(R.id.favoritesFragment);
+        topLevelDestinations.add(R.id.likedPostsFragment);
         topLevelDestinations.add(R.id.myProfileFragment);
-
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(topLevelDestinations).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

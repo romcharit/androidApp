@@ -19,11 +19,14 @@
     <fragment
         android:id="@+id/postFragment"
         android:name="com.example.mixmaster.PostFragment"
-        android:label="fragment_post"
-        tools:layout="@layout/fragment_post" >
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_post">
         <argument
             android:name="postId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_postFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -34,14 +37,48 @@
         android:id="@+id/myProfileFragment"
         android:name="com.example.mixmaster.MyProfileFragment"
         android:label="Mix Master"
-        tools:layout="@layout/fragment_my_profile" />
+        tools:layout="@layout/fragment_my_profile" >
+        <action
+            android:id="@+id/action_myProfileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.example.mixmaster.UserProfileFragment"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" >
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_user_profile">
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.mixmaster.EditPostFragment"
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.mixmaster.EditProfileFragment"
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.mixmaster.SearchFragment"
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/likedPostsFragment"
+        android:name="com.example.mixmaster.LikedPostsFragment"
+        android:label="Mix Master"
+        tools:layout="@layout/fragment_liked_posts" />
 </navigation>

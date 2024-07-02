@@ -24,6 +24,12 @@ public interface PostDao {
     @Query("select * from Post where id=:id")
     LiveData<Post> getPostById(String id);
 
+    @Query("select * from Post where id in (:postIds)")
+    List<Post> getLikedPosts(List<String> postIds);
+
+    @Query("SELECT * FROM Post WHERE cocktailName LIKE '%' || :searchString || '%'")
+    List<Post> getPostsByCocktailName(String searchString);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Post post);
 

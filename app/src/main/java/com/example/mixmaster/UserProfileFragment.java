@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -69,19 +70,18 @@ public class UserProfileFragment extends Fragment {
             Picasso.get().load(user.avatar).into(binding.avatarUserProfile);
         }
 
-//        viewModel.getData(user.userName).observe(getViewLifecycleOwner(), (posts) -> {
-//            adapter = new UserRecyclerAdapter(posts, getLayoutInflater());
-//            binding.recyclerView.setAdapter(adapter);
+        viewModel.getData(user.userName).observe(getViewLifecycleOwner(), (posts) -> {
+            adapter = new UserRecyclerAdapter(posts, getLayoutInflater());
+            binding.recyclerView.setAdapter(adapter);
 
-            // get user posts
-//            adapter.SetItemClickListener(new UserRecyclerAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(int pos) {
-//                    UserProfileFragmentDirections.ActionUserProfileFragmentToPostFragment action = UserProfileFragmentDirections.actionUserProfileFragmentToPostFragment(posts.get(pos).id);
-//                    Navigation.findNavController(view).navigate(action);
-//                }
-//            });
-//        });
+            adapter.SetItemClickListener(new UserRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int pos) {
+                    UserProfileFragmentDirections.ActionUserProfileFragmentToPostFragment action = UserProfileFragmentDirections.actionUserProfileFragmentToPostFragment(posts.get(pos).id);
+                    Navigation.findNavController(view).navigate(action);
+                }
+            });
+        });
     }
 
 }

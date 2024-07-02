@@ -1,11 +1,9 @@
 package com.example.mixmaster;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,13 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mixmaster.model.Model;
 import com.example.mixmaster.model.Post;
 import com.example.mixmaster.model.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.Inflater;
 
 
 // Post View Holder
@@ -29,7 +28,6 @@ class PostViewHolder extends RecyclerView.ViewHolder {
     ImageView avatarImg;
     ImageView cocktailImg;
     ImageButton likeBtn;
-    List<Post> data;
 
     public PostViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -37,7 +35,7 @@ class PostViewHolder extends RecyclerView.ViewHolder {
         cocktailNameTv = itemView.findViewById(R.id.cocktail_name_plr);
         avatarImg = itemView.findViewById((R.id.avatar_plr));
         cocktailImg = itemView.findViewById(R.id.cocktail_img_plr);
-        likeBtn = itemView.findViewById(R.id.like_btn_plr);
+        likeBtn = itemView.findViewById(R.id.post_like_btn);
     }
 
     public void bind(User user, Post post, PostRecyclerAdapter.OnItemClickListener onImageClickListener,
@@ -45,9 +43,9 @@ class PostViewHolder extends RecyclerView.ViewHolder {
 
         userNameTv.setText(post.userName);
         // set user avatar
-//        if (Objects.equals(post.getAvatarUrl(), "")) {
-//            avatarImg.setImageResource(R.drawable.profile_pic);
-//        }else {Picasso.get().load(post.getAvatarUrl()).into(avatarImg);}
+        if (Objects.equals(post.getAvatarUrl(), "")) {
+            avatarImg.setImageResource(R.drawable.profile_pic);
+        }else {Picasso.get().load(post.getAvatarUrl()).into(avatarImg);}
 
         cocktailNameTv.setText(post.cocktailName);
         // set cocktail image
@@ -55,7 +53,27 @@ class PostViewHolder extends RecyclerView.ViewHolder {
             Picasso.get().load(post.getCocktailUrl()).placeholder(R.drawable.cocktail_blank).into(cocktailImg);
         } else {cocktailImg.setImageResource(R.drawable.cocktail_blank);}
 
-        likeBtn.setImageResource(R.drawable.like_btn);
+//        likeBtn.setImageResource(R.drawable.like_btn);
+
+        if (user.likedPosts.contains(post.id)){
+            this.likeBtn.setImageResource(R.drawable.liked_black_icon);
+        }
+
+        likeBtn.setOnClickListener(view -> {
+            List<String> likedPostsList = new ArrayList<>(user.getLikedPosts());
+            if (!user.likedPosts.contains(post.id)) {
+                likedPostsList.add(post.id);
+                user.setLikedPosts(likedPostsList);
+                Model.getInstance().updateLikedPosts(user);
+                likeBtn.setImageResource(R.drawable.liked_black_icon);
+            }
+            else{
+                likedPostsList.remove(post.id);
+                user.setLikedPosts(likedPostsList);
+                Model.getInstance().updateLikedPosts(user);
+                likeBtn.setImageResource(R.drawable.like_btn);
+            }
+        });
 
         this.cocktailImg.setOnClickListener(view->{
             onImageClickListener.onItemClick(getAdapterPosition());
@@ -126,7 +144,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostViewHolder> {
     }
 
     public void setUser(User user) {
-        this.user=user;
+        this.user = user;
     }
 }
 

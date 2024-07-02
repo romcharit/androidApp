@@ -10,15 +10,18 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.mixmaster.MyApplication;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @Entity
+@TypeConverters(ListConverter.class)
 public class User {
     @PrimaryKey
     @NonNull
@@ -26,36 +29,45 @@ public class User {
     public String userName = "";
     public String avatar = "";
     public String country = "";
+    public List<String> likedPosts;
     public Long lastUpdated;
 
     public User(){}
 
-    public User(String userName, String avatar, String email, String country){
+    public User(String userName, String avatar, String email, String country, List<String> likedPosts){
         this.userName = userName;
         this.avatar = avatar;
         this.email = email;
         this.country = country;
+        this.likedPosts = likedPosts;
     }
 
     static final String USER_NAME = "username";
     static final String AVATAR = "avatar";
     static final String EMAIL = "email";
     static final String COUNTRY = "country";
+    static final String LIKED_POSTS = "liked_posts";
     static final String COLLECTION = "users";
     static final String LAST_UPDATED = "lastUpdated";
     static final String LOCAL_LAST_UPDATED = "users_local_last_updated";
 
-    public static User fromJson(Map<String,Object> json) {
+    public static User fromJson(Map<String,Object> json)
+    {
         String username = (String)json.get(USER_NAME);
         String avatar = (String)json.get(AVATAR);
         String email = (String)json.get(EMAIL);
         String country = (String)json.get(COUNTRY);
-        User user = new User(username, avatar, email, country);
+        List<String> likedPosts = (List<String>)json.get(LIKED_POSTS);
+
+        User user = new User(username, avatar, email, country, likedPosts);
+
         try{
             Timestamp time = (Timestamp) json.get(LAST_UPDATED);
             user.setUserLastUpdated(time.getSeconds());
         }catch (Exception e) {}
+
         return user;
+
     }
 
     public static Map<String,Object> toJson(User user) {
@@ -64,6 +76,7 @@ public class User {
         json.put(AVATAR, user.getAvatar());
         json.put(EMAIL, user.getEmail());
         json.put(COUNTRY, user.getCountry());
+        json.put(LIKED_POSTS, user.getLikedPosts());
         // time update
         json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
@@ -78,6 +91,14 @@ public class User {
     public static void setUserLocalLastUpdate(Long time) {
         MyApplication.getMyContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
                 .edit().putLong(LOCAL_LAST_UPDATED, time).commit();
+    }
+
+    public List<String> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public void setLikedPosts(List<String> likedPosts) {
+        this.likedPosts = likedPosts;
     }
 
     public Long getUserLastUpdated() {

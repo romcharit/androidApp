@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -20,15 +21,18 @@ import java.util.List;
 class UserViewHolder extends RecyclerView.ViewHolder{
 
     ImageView cocktailImg;
+    TextView username;
 
     public UserViewHolder(@NonNull View itemView) {
         super(itemView);
         cocktailImg = itemView.findViewById(R.id.cocktail_img);
+        username = itemView.findViewById(R.id.cocktail_name);
     }
 
     public void bind(Post post, UserRecyclerAdapter.OnItemClickListener listener) {
         Picasso.get().load(post.cocktailUrl).into(cocktailImg);
-        cocktailImg.setOnClickListener(v->listener.onItemClick(getAdapterPosition()));
+        username.setText(post.cocktailName);
+        cocktailImg.setOnClickListener(view->listener.onItemClick(getAdapterPosition()));
     }
 }
 
@@ -61,7 +65,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserViewHolder>{
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.user_post_list_row,parent,false);
+        View view = inflater.inflate(R.layout.user_post_list_row,parent,false);
         return new UserViewHolder(view);
     }
 

@@ -33,7 +33,6 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         binding = FragmentMyProfileBinding.inflate(inflater,container,false);
         view = binding.getRoot();
@@ -41,19 +40,16 @@ public class MyProfileFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         userViewModel.getUser().observe(getViewLifecycleOwner(),newUser->{
-//            if (newUser != null) {
-//                user = newUser;
-//                setProfile();
-//            }
-            user = newUser;
-            setProfile();
+            if (newUser != null) {
+                user = newUser;
+                setProfile();
+            }
         });
 
         return view;
     }
 
-
-        @Override
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myProfileViewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
@@ -61,15 +57,32 @@ public class MyProfileFragment extends Fragment {
     }
 
     public void setProfile(){
+        binding.userNameMyProfile.setText(user.userName);
+        binding.emailMyProfile.setText(user.email);
+        binding.countryMyProfile.setText(user.country);
 
-//        binding.userNameMyProfile.setText(user.userName);
-//        binding.emailMyProfile.setText(user.email);
-//        binding.countryMyProfile.setText(user.country);
-//        binding.avatarMyProfile.setImageResource(R.drawable.profile_pic);
+        // Set profile picture
+        if (!user.avatar.equals("")) {
+            Picasso.get().load(user.avatar).into(binding.avatarMyProfile);
+        }else {
+            binding.avatarMyProfile.setImageResource(R.drawable.profile_pic);
+        }
+
+        myProfileViewModel.getData(user.userName).observe(getViewLifecycleOwner(), (posts) -> {
+                    adapter = new UserRecyclerAdapter(posts, getLayoutInflater());
+                    binding.recyclerView.setAdapter(adapter);
+                    adapter.SetItemClickListener(new UserRecyclerAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int pos) {
+                            MyProfileFragmentDirections.ActionMyProfileFragmentToPostFragment action = MyProfileFragmentDirections.actionMyProfileFragmentToPostFragment(posts.get(pos).id);
+                            Navigation.findNavController(view).navigate(action);
+                        }
+                    });
+        });
 
         // Edit Btn
-//        binding.editButton.setOnClickListener(Navigation.createNavigateOnClickListener
-//                (R.id.action_profileFragment_to_editProfileFragment));
+        binding.editBtnMyProfile.setOnClickListener(Navigation.createNavigateOnClickListener
+                (R.id.action_myProfileFragment_to_editProfileFragment));
 
         // LogOut Btn
         binding.logOutBtnMyProfile.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +101,5 @@ public class MyProfileFragment extends Fragment {
                         .create().show();
             }
         });
-
-
-//        if (!user.avatar.equals(" ")) {
-//            Picasso.get().load(user.avatar).into(binding.avatarMyProfile);
-//        }else {
-//            binding.avatarMyProfile.setImageResource(R.drawable.profile_pic);
-//        }
-
     }
-
 }

@@ -25,6 +25,7 @@ import com.example.mixmaster.databinding.FragmentSignUpBinding;
 import com.example.mixmaster.model.Model;
 import com.example.mixmaster.model.User;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -39,19 +40,21 @@ public class SignUpFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri o) {
-                if (o!=null){
+                if (o != null){
                     binding.signupAvatar.setImageURI(o);
                     isAvatarSelected = true;
                 }
             }
         });
+
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
             @Override
             public void onActivityResult(Bitmap o) {
-                if (o!= null) {
+                if (o != null) {
                     binding.signupAvatar.setImageBitmap(o);
                     isAvatarSelected = true;
                 }
@@ -83,7 +86,7 @@ public class SignUpFragment extends Fragment {
 
                 Model.getInstance().uploadImage(id, bitmap, avatarUrl -> {
 
-                    User newUser = new User(userName, avatarUrl, email, country);
+                    User newUser = new User(userName, avatarUrl, email, country, new ArrayList<>());
                     Model.getInstance().signUp(newUser, password, (unused) -> {
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
