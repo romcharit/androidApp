@@ -22,131 +22,161 @@
                 android:id="@+id/post_cocktail_img"
                 android:layout_width="347dp"
                 android:layout_height="305dp"
+                android:layout_marginTop="13dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_name"
                 app:srcCompat="@drawable/negroni_image" />
 
             <TextView
+                android:id="@+id/post_description"
+                android:layout_width="325dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/user_post_list_row_border"
+                android:gravity="center_horizontal"
+                android:text="Description..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_post_frag" />
+
+            <TextView
+                android:id="@+id/post_recipe"
+                android:layout_width="325dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/user_post_list_row_border"
+                android:gravity="center_horizontal"
+                android:text="Recipe..."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_post_frag" />
+
+            <Button
+                android:id="@+id/post_edit_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:layout_weight="1"
+                android:text="Edit Post"
+                app:layout_constraintEnd_toStartOf="@+id/post_delete_btn"
+                app:layout_constraintHorizontal_bias="0.848"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoty_title_post_frag" />
+
+            <Button
+                android:id="@+id/post_delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="78dp"
+                android:layout_weight="1"
+                android:text="Delete Post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category_post_frag" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="300dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/post_like_btn"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_img">
+
+                <TextView
+                    android:id="@+id/post_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="by"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/post_username"
+                    android:layout_width="120dp"
+                    android:layout_height="34dp"
+                    android:gravity="center"
+                    android:text="UserName"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <TextView
                 android:id="@+id/post_cocktail_name"
-                android:layout_width="197dp"
+                android:layout_width="225dp"
                 android:layout_height="43dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="7dp"
                 android:gravity="center"
                 android:text="CocktailName"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_img" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/post_publish_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
-                android:gravity="center"
-                android:text="01/06/2024"
-                android:textSize="16sp"
+            <ImageButton
+                android:id="@+id/post_like_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.13"
-                app:layout_constraintStart_toEndOf="@+id/post_publish_text"
-                app:layout_constraintTop_toBottomOf="@+id/post_username" />
+                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_img"
+                app:srcCompat="@drawable/like_btn" />
 
             <TextView
-                android:id="@+id/post_publish_text"
+                android:id="@+id/about_post_frag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="112dp"
-                android:layout_marginTop="44dp"
-                android:text="Publish Date"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_username" />
-
-            <TextView
-                android:id="@+id/post_description"
-                android:layout_width="325dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="25dp"
-                android:text="Description..."
+                android:layout_marginTop="20dp"
+                android:text="About"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_publish_date" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
             <TextView
-                android:id="@+id/post_recipe"
-                android:layout_width="325dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="15dp"
-                android:text="Recipe..."
+                android:id="@+id/recipe_post_frag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Recipe"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/post_description" />
 
             <TextView
-                android:id="@+id/post_username"
-                android:layout_width="128dp"
-                android:layout_height="34dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="UserName"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.029"
-                app:layout_constraintStart_toEndOf="@+id/post_by"
-                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_name" />
-
-            <TextView
-                android:id="@+id/post_by"
+                android:id="@+id/categoty_title_post_frag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="128dp"
-                android:layout_marginTop="12dp"
-                android:text="by"
-                android:textSize="20sp"
+                android:layout_marginTop="29dp"
+                android:text="Category:"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/category_post_frag"
+                app:layout_constraintHorizontal_bias="0.907"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_name" />
+                app:layout_constraintTop_toBottomOf="@+id/post_recipe" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="409dp"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
+            <TextView
+                android:id="@+id/category_post_frag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="148dp"
+                android:text="classic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/post_edit_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Edit Post" />
-
-                <Button
-                    android:id="@+id/post_delete_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Delete Post" />
-            </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/post_like_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/post_cocktail_name"
-                app:layout_constraintTop_toBottomOf="@+id/post_cocktail_img"
-                app:srcCompat="@drawable/like_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/post_recipe" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

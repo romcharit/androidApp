@@ -1,7 +1,13 @@
 package com.example.mixmaster.model;
 
 
+import static androidx.fragment.app.FragmentManager.TAG;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +18,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import com.example.mixmaster.restAPI.Country;
+import com.example.mixmaster.restAPI.CountryApiService;
+import com.example.mixmaster.restAPI.RetrofitClientInstance;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -189,18 +198,12 @@ public class Model {
         refreshAllUsers();
     }
 
-    public void getLikedPosts(List<String> likedPosts,Listener<List<Post>> listener) {
+    public void getLikedPosts(List<String> likedPosts, Listener<List<Post>> listener) {
         executor.execute(()->{
             List<Post> data = localDb.postDao().getLikedPosts(likedPosts);
             mainHandler.post(()->{listener.onComplete(data);});
         });
     }
-
-//    List<Post> searchPostsList;
-//    public List<Post> getPostsByDrinkName(String drinkName, Listener<List<Post>> listener){
-//        searchPostsList = localDb.postDao().getPostsByCocktailName(drinkName);
-//        return searchPostsList;
-//    }
 
     public void getPostsByDrinkName(String drinkName, Listener<List<Post>> listener){
         refreshAllPosts();
@@ -231,6 +234,14 @@ public class Model {
         });
     }
 
+    public void isUsernameTaken(String username, Listener<Boolean> listener) {
+        firebaseModel.isUsernameTaken(username, listener);
+    }
+
+    public void isEmailTaken(String email, Listener<Boolean> listener) {
+        firebaseModel.isEmailTaken(email, listener);
+    }
+
     public boolean isLoggedIn(){
         return firebaseModel.isLoggedIn();
     }
@@ -252,4 +263,33 @@ public class Model {
         return categoryList;
     }
 
+
+    public void getCountries(Listener<List<String>> listener) {
+
+        List<String> data = new ArrayList<>();
+        data.add("Country");
+
+        CountryApiService service = RetrofitClientInstance.getRetrofitInstance().create(CountryApiService.class);
+        Call<List<Country>> call = service.getAllCountries();
+
+        call.enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                    List<Country> countries = response.body();
+                    if (countries != null) {
+                        for (Country country : countries) {
+                            data.add(country.getName());
+                        }
+                        mainHandler.post(()-> listener.onComplete(data));
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                Log.e("TAG", "Failed to fetch countries", t);
+            }
+        });
+    }
+
 }
+

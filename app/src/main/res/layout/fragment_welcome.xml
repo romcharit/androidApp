@@ -10,13 +10,13 @@
         android:id="@+id/textView13"
         android:layout_width="384dp"
         android:layout_height="72dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="280dp"
         android:gravity="center"
         android:text="Mix Master"
         android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,12 +33,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="414dp"
         android:layout_height="58dp"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="396dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -46,6 +48,7 @@
             android:id="@+id/login_btn_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttons_design"
             android:text="Login"
             android:textSize="24sp"
             tools:layout_editor_absoluteY="288dp" />
@@ -54,10 +57,22 @@
             android:id="@+id/signup_btn_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/buttons_design"
             android:text="Sign Up"
             android:textSize="24sp"
             tools:layout_editor_absoluteY="288dp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="411dp"
+        android:layout_height="399dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/cocktails_in_the"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

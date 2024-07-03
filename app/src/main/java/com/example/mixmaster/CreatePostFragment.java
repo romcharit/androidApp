@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -38,6 +39,7 @@ import java.util.UUID;
 public class CreatePostFragment extends Fragment {
     FragmentCreatePostBinding binding;
     ActivityResultLauncher<Void> cameraLauncher;
+    ActivityResultLauncher<String> galleryLauncher;
     Boolean isCocktailImageSelected = false;
     UserViewModel userViewModel;
     User user;
@@ -49,6 +51,15 @@ public class CreatePostFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri o) {
+                if (o != null){
+                    binding.cocktailImgCreatePost.setImageURI(o);
+                    isCocktailImageSelected = true;
+                }
+            }
+        });
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicturePreview(), new ActivityResultCallback<Bitmap>() {
             @Override
             public void onActivityResult(Bitmap result) {
@@ -118,7 +129,7 @@ public class CreatePostFragment extends Fragment {
         });
 
         binding.editImgBtnCreatePost.setOnClickListener(view1->{
-
+            galleryLauncher.launch("image/*");
         });
 
         return view;

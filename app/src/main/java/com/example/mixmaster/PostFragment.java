@@ -51,11 +51,6 @@ public class PostFragment extends Fragment {
             Picasso.get().load(post.cocktailUrl).into(binding.postCocktailImg);
             binding.postDescription.setText(post.cocktailDescription);
             binding.postRecipe.setText(post.cocktailRecipe);
-            binding.postBy.findViewById(R.id.post_by);
-            binding.postPublishText.findViewById(R.id.post_publish_text);
-            binding.postLikeBtn.findViewById(R.id.post_like_btn);
-            binding.postEditBtn.findViewById(R.id.post_edit_btn);
-            binding.postDeleteBtn.findViewById(R.id.post_delete_btn);
 
             userViewModel.getUser().observe(getViewLifecycleOwner(), (user)->{
 

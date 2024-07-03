@@ -33,7 +33,7 @@ public class LoginFragment extends Fragment {
                 String password = binding.loginPassword.getText().toString();
                 Model.getInstance().logIn(username, password, (isSuccessful) -> {
                     if (isSuccessful) {
-                        Intent intent=new Intent(getActivity(), MainActivity.class);
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                         getActivity().finish();
                     } else {

@@ -26,6 +26,7 @@ public class Post {
     public String cocktailRecipe= "";
     public String cocktailUrl = "";
     public String likeUrl = "";
+//    public String category = "";
     public Long lastUpdated;
 
     public Post(){}

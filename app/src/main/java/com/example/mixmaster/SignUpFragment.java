@@ -1,5 +1,6 @@
 package com.example.mixmaster;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,7 +27,11 @@ import com.example.mixmaster.model.Model;
 import com.example.mixmaster.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class SignUpFragment extends Fragment {
@@ -35,6 +40,10 @@ public class SignUpFragment extends Fragment {
     ActivityResultLauncher<String> galleryLauncher;
     ActivityResultLauncher<Void> cameraLauncher;
     Boolean isAvatarSelected = false;
+    String username;
+    String email;
+    String password;
+    String country;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,27 +80,56 @@ public class SignUpFragment extends Fragment {
         binding = FragmentSignUpBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
 
+        // Set Country spinner
+//        SpinnerAdapter.setCountrySpinner(getContext(),(adapter)->binding.signupCountrySpinner.setAdapter(adapter));
+
+
         /* SUBMIT BTN */
-        binding.signupSubmitBtn.setOnClickListener(view1->{
-            String userName = binding.signupUsername.getText().toString();
-            String email = binding.signupEmail.getText().toString();
-            String password = binding.signupPassword.getText().toString();
-            String country = binding.signupCountry.getText().toString();
+        binding.signupSubmitBtn.setOnClickListener(view1-> {
 
-            if (isAvatarSelected) {
-                binding.signupAvatar.setDrawingCacheEnabled(true);
-                binding.signupAvatar.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) binding.signupAvatar.getDrawable()).getBitmap();
-                String id = UUID.randomUUID().toString();
+            username = binding.signupUsername.getText().toString();
+            email = binding.signupEmail.getText().toString();
+            password = binding.signupPassword.getText().toString();
 
-                Model.getInstance().uploadImage(id, bitmap, avatarUrl -> {
 
-                    User newUser = new User(userName, avatarUrl, email, country, new ArrayList<>());
-                    Model.getInstance().signUp(newUser, password, (unused) -> {
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    });
+            if (validateInput()) {
+                Model.getInstance().isUsernameTaken(username, (usernameTaken)-> {
+                    if (usernameTaken) {
+                        makeAToast("Username is Already Taken");
+                    }else {
+                        Model.getInstance().isEmailTaken(email, (emailTaken)-> {
+                            if (emailTaken) {
+                                makeAToast("Email Is Already Taken");
+                            } else {
+                                if (isAvatarSelected) {
+                                    binding.signupAvatar.setDrawingCacheEnabled(true);
+                                    binding.signupAvatar.buildDrawingCache();
+                                    Bitmap bitmap = ((BitmapDrawable) binding.signupAvatar.getDrawable()).getBitmap();
+                                    String id = UUID.randomUUID().toString();
+
+                                    Model.getInstance().uploadImage(id, bitmap, avatarUrl -> {
+
+                                        User newUser = new User(username, avatarUrl, email, country, new ArrayList<>());
+                                        Model.getInstance().signUp(newUser, password, (unused) -> {
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        });
+                                    });
+                                }
+                                else{
+                                    User newUser = new User(username, "", email, country, new ArrayList<>());
+                                    Model.getInstance().signUp(newUser, password, (unused) -> {
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
+                                    });
+                                }
+
+                            }
+                        });
+                    }
+
                 });
             }
         });
@@ -105,6 +143,46 @@ public class SignUpFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void makeAToast(String text){
+        new AlertDialog.Builder(getContext())
+                .setTitle("Invalid Input")
+                .setMessage(text)
+                .setPositiveButton("Ok", (dialog,which)->{
+                })
+                .create().show();
+    }
+
+    public boolean validateInput()
+    {
+
+        if (Objects.equals(username, "")) {
+            makeAToast("Please enter an username");
+            return false;
+        }
+        else if (!isValidEmail(email)) {
+            makeAToast("Please enter a valid email");
+            return false;
+        }
+        else if (password.length()<6) {
+            makeAToast("Password must contain at least 6 characters");
+            return false;
+        }
+        else if (Objects.equals(country, "Country")) {
+            makeAToast("Please choose a Country");
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean isValidEmail(String email){
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }

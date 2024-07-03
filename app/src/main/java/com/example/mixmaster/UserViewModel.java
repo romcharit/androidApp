@@ -8,8 +8,8 @@ import com.example.mixmaster.model.User;
 
 public class UserViewModel extends ViewModel {
     private LiveData<User> user;
-    public  LiveData<User> getUser() {
-        this.user = Model.getInstance().getLoggedUser();
+    public LiveData<User> getUser() {
+            this.user = Model.getInstance().getLoggedUser();
         return user;
     }
 }
