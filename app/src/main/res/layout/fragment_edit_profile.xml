@@ -30,26 +30,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/edit_profile_country"
-        android:layout_width="315dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="65dp"
-        android:hint="Country..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_avatar" />
-
     <Button
         android:id="@+id/edit_profile_confirm_btn"
         android:layout_width="203dp"
         android:layout_height="50dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="27dp"
         android:text="Confirm"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_country" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_spinner" />
 
     <ImageButton
         android:id="@+id/edit_profile_camera_btn"
@@ -62,6 +53,16 @@
         app:layout_constraintEnd_toStartOf="@+id/edit_profile_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/edit_profile_spinner"
+        android:layout_width="315dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_avatar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

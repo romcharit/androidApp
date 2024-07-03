@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.mixmaster.databinding.FragmentEditPostBinding;
 import com.example.mixmaster.databinding.FragmentEditProfileBinding;
@@ -35,6 +36,7 @@ public class EditProfileFragment extends Fragment {
     ActivityResultLauncher<Void> cameraLauncher;
     UserViewModel userViewModel;
     Boolean isAvatarSelected = false;
+    String country;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,15 +88,25 @@ public class EditProfileFragment extends Fragment {
                 binding.editProfileAvatar.setImageResource(R.drawable.profile_pic);
             }
 
+            binding.editProfileSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                    user.country = parent.getItemAtPosition(pos).toString();
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            });
+
             // set current user Country
-            binding.editProfileCountry.setText(user.country);
+            SpinnerAdapter.setCountrySpinner(getContext(),adapter->binding.editProfileSpinner.setAdapter(adapter));
+
 
             // confirm btn
             binding.editProfileConfirmBtn.setOnClickListener(view1-> {
 
-                String country = binding.editProfileCountry.getText().toString();
 
-                if (!country.isEmpty()) {
+                if (!user.country.equals("Country")) {
                     if (isAvatarSelected) {
                         binding.editProfileAvatar.setDrawingCacheEnabled(true);
                         binding.editProfileAvatar.buildDrawingCache();
@@ -102,13 +114,13 @@ public class EditProfileFragment extends Fragment {
                         String id = UUID.randomUUID().toString();
 
                         Model.getInstance().uploadImage(id, bitmap, avatarUrl -> {
-                            User newUser = new User(user.userName, avatarUrl, user.email, country, user.likedPosts);
+                            User newUser = new User(user.userName, avatarUrl, user.email, user.country, user.likedPosts);
                             Model.getInstance().updateUser(newUser, unused -> {
                                 Navigation.findNavController(view1).popBackStack();
                             });
                         });
                     } else {
-                        User newUser = new User(user.userName, user.avatar, user.email, country, user.likedPosts);
+                        User newUser = new User(user.userName, user.avatar, user.email, user.country, user.likedPosts);
                         Model.getInstance().updateUser(newUser, unused -> {
                             Navigation.findNavController(view1).popBackStack();
                         });

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.mixmaster.databinding.FragmentSearchBinding;
 import com.example.mixmaster.model.Model;
+import com.example.mixmaster.model.Post;
 
 
 public class SearchFragment extends Fragment {
@@ -61,9 +63,17 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Handle search text changes
+
                 // Update RecyclerView data based on the search query
                 Model.getInstance().getPostsByDrinkName(newText, (data) -> {
+
+                    adapter.setOnImageClickListener(pos -> {
+                        Post post = data.get(pos);
+                        SearchFragmentDirections.ActionSearchFragmentToPostFragment action = SearchFragmentDirections.actionSearchFragmentToPostFragment(post.id);
+                        Navigation.findNavController(view).navigate(action);
+
+                    });
+
                     searchViewModel.setData(data);
                     adapter.setData(data);
                 });

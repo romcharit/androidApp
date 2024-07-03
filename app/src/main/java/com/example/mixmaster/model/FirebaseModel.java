@@ -253,11 +253,11 @@ public class FirebaseModel {
     }
 
     public void isEmailTaken(String email, Model.Listener<Boolean> listener) {
-        db.collection(User.COLLECTION).document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection(User.COLLECTION).whereEqualTo(User.EMAIL,email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    listener.onComplete(task.getResult().getData()!=null);
+                    listener.onComplete(!task.getResult().getDocuments().isEmpty());
                 }
             }
         });

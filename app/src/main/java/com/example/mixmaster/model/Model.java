@@ -72,49 +72,25 @@ public class Model {
 
     public void refreshAllPosts(){
         EventPostsListLoadingState.setValue(LoadingState.LOADING);
-        Long localLastUpdated = Post.getPostLocalLastUpdate();
-        firebaseModel.getAllPostsSince(localLastUpdated, (posts)-> {
+        Long localLastUpdated= Post.getPostLocalLastUpdate();
+        firebaseModel.getAllPostsSince(localLastUpdated,(posts)->{
             executor.execute(()->{
-                Long time=localLastUpdated;
-                for (Post post : posts) {
-                    localDb.postDao().insert(post);
-                    if (post.lastUpdated > time) {
-                        time=post.lastUpdated;
-                    }
-                }
-                Post.setPostLocalLastUpdate(time);
+                helperFunc(localLastUpdated, posts);
                 EventPostsListLoadingState.postValue(LoadingState.NOT_LOADING);
             });
         });
     }
 
-//    public void refreshAllPosts(){
-//        EventPostsListLoadingState.setValue(LoadingState.LOADING);
-//        // get local last update
-//        Long localLastUpdate = Post.getPostLocalLastUpdate();
-//        // get all updated record from firebase since local last update
-//        firebaseModel.getAllPostsSince(localLastUpdate,list->{
-//            executor.execute(()->{
-//                Log.d("TAG", "firebase return : " + list.size());
-//                Long time = localLastUpdate;
-//                for(Post post : list) {
-//                    // insert new records into ROOM
-//                    localDb.postDao().insert(post);
-//                    if (time < post.getLastUpdated()){
-//                        time = post.getLastUpdated();
-//                    }
-//                }
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                // update local last update
-//                Post.setPostLocalLastUpdate(time);
-//                EventPostsListLoadingState.postValue(LoadingState.NOT_LOADING);
-//            });
-//        });
-//    }
+    public void helperFunc(Long localLastUpdated,List<Post> posts){
+        Long time = localLastUpdated;
+        for (Post post : posts) {
+            localDb.postDao().insert(post);
+            if (post.lastUpdated > time) {
+                time=post.lastUpdated;
+            }
+        }
+        Post.setPostLocalLastUpdate(time);
+    }
 
     public void refreshAllPostsNoProgressBar(){
         Long localLastUpdated = Post.getPostLocalLastUpdate();
@@ -158,7 +134,6 @@ public class Model {
     }
 
     public void signUp(User newUser, String password, Listener<Void> listener) {
-        //listener.onComplete(null);
         firebaseModel.signUp(newUser,password,listener);
         refreshAllUsers();
     }

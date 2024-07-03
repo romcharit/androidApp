@@ -26,12 +26,12 @@ public class Post {
     public String cocktailRecipe= "";
     public String cocktailUrl = "";
     public String likeUrl = "";
-//    public String category = "";
+    public String category = "";
     public Long lastUpdated;
 
     public Post(){}
 
-    public Post(String id, String userName, String cocktailName, String cocktailDescription,
+    public Post(String id, String userName, String category, String cocktailName, String cocktailDescription,
                 String cocktailRecipe, String avatarUrl, String cocktailUrl, String likeUrl)
     {
         this.id = id;
@@ -42,6 +42,7 @@ public class Post {
         this.avatarUrl = avatarUrl;
         this.cocktailUrl = cocktailUrl;
         this.likeUrl = likeUrl;
+        this.category = category;
     }
 
     static final String ID = "id";
@@ -52,6 +53,7 @@ public class Post {
     static final String AVATAR = "avatar";
     static final String COCKTAIL_IMAGE = "cocktailImg";
     static final String LIKE = "like";
+    static final String CATEGORY = "category";
     static final String COLLECTION = "posts";
     static final String LAST_UPDATED = "lastUpdated";
     static final String LOCAL_LAST_UPDATED = "posts_local_last_updated";
@@ -67,8 +69,9 @@ public class Post {
         String avatar = (String)json.get((AVATAR));
         String cocktailImg = (String)json.get((COCKTAIL_IMAGE));
         String like = (String)json.get((LIKE));
+        String category = (String)json.get((CATEGORY));
 
-        Post post = new Post(id,username,cocktailName,description,recipe,avatar,cocktailImg,like);
+        Post post = new Post(id, username, category, cocktailName, description, recipe, avatar, cocktailImg, like);
 
        try{
            Timestamp time = (Timestamp) json.get(LAST_UPDATED);
@@ -99,6 +102,7 @@ public class Post {
         json.put(AVATAR, getAvatarUrl());
         json.put(COCKTAIL_IMAGE, getCocktailUrl());
         json.put(LIKE, getLikeUrl());
+        json.put(CATEGORY,getCategory());
         // time update
         json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
@@ -115,6 +119,14 @@ public class Post {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getCocktailName() {

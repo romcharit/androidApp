@@ -51,6 +51,7 @@ public class PostFragment extends Fragment {
             Picasso.get().load(post.cocktailUrl).into(binding.postCocktailImg);
             binding.postDescription.setText(post.cocktailDescription);
             binding.postRecipe.setText(post.cocktailRecipe);
+            binding.categoryPostFrag.setText(post.category);
 
             userViewModel.getUser().observe(getViewLifecycleOwner(), (user)->{
 
@@ -92,13 +93,13 @@ public class PostFragment extends Fragment {
                             }
                         });
                     }
-                    binding.postDeleteBtn.setOnClickListener((v)->{
+                    binding.postDeleteBtn.setOnClickListener((view1)->{
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Are you sure you want to delete the post?")
                                 .setMessage("Your post will be permanently deleted")
                                 .setPositiveButton("Yes", (dialog,which)->{
                                     Model.getInstance().deletePost(post,(unused)->{
-                                        Navigation.findNavController(v).popBackStack(R.id.myProfileFragment,false);
+                                        Navigation.findNavController(view1).popBackStack(R.id.myProfileFragment,false);
                                     });
                                 }).setNegativeButton("No",(dialog,which)->{})
                                 .create().show();

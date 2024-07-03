@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.mixmaster.databinding.FragmentLikedPostsBinding;
 import com.example.mixmaster.model.Model;
+import com.example.mixmaster.model.Post;
 
 public class LikedPostsFragment extends Fragment {
 
@@ -39,6 +41,14 @@ public class LikedPostsFragment extends Fragment {
             binding.recyclerView.setAdapter(adapter);
 
             Model.getInstance().getLikedPosts(user.likedPosts,(posts)->{
+
+                adapter.setOnImageClickListener(pos -> {
+                    Post post = posts.get(pos);
+                    LikedPostsFragmentDirections.ActionLikedPostsFragmentToPostFragment action = LikedPostsFragmentDirections.actionLikedPostsFragmentToPostFragment(post.id);
+                    Navigation.findNavController(view).navigate(action);
+
+                });
+
                 viewModel.setLikedPosts(posts);
                 adapter.setData(posts);
             });

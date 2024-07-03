@@ -106,13 +106,13 @@ public class EditPostFragment extends Fragment {
             binding.cocktailNameEditPost.setText(post.cocktailName);
             binding.cocktailDescriptionEditPost.setText(post.cocktailDescription);
             binding.cocktailRecipeEditPost.setText(post.cocktailRecipe);
-            binding.categorySpinnerEditPost.setSelection(1);
 
             binding.confirmBtnEditPost.setOnClickListener(view1->{
 
                 post.cocktailName = binding.cocktailNameEditPost.getText().toString();
                 post.cocktailDescription = binding.cocktailDescriptionEditPost.getText().toString();
                 post.cocktailRecipe = binding.cocktailRecipeEditPost.getText().toString();
+                post.category = cocktailCategory;
 
                 if (isImageSelected)
                 {

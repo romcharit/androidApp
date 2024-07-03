@@ -89,6 +89,7 @@ public class CreatePostFragment extends Fragment {
         // Category Spinner
         Spinner cocktailCategorySpinner = binding.categorySpinnerCreatePost;
         cocktailCategorySpinner.setAdapter(SpinnerAdapter.setCocktailCategoriesSpinner(getContext()));
+
         cocktailCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -110,7 +111,7 @@ public class CreatePostFragment extends Fragment {
                 binding.cocktailImgCreatePost.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) binding.cocktailImgCreatePost.getDrawable()).getBitmap();
                 String id = UUID.randomUUID().toString();
-                Post post = new Post(id, user.userName, cocktailName, cocktailDescription, cocktailRecipe, user.avatar, "", " ");
+                Post post = new Post(id, user.userName, cocktailCategory, cocktailName, cocktailDescription, cocktailRecipe, user.avatar, "", " ");
 
                 Model.getInstance().uploadImage(id, bitmap, url -> {
                     if (url != null) {

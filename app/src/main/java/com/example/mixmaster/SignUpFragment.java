@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -80,9 +81,17 @@ public class SignUpFragment extends Fragment {
         binding = FragmentSignUpBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
 
+        binding.signupCountrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                country = parent.getItemAtPosition(pos).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
         // Set Country spinner
         SpinnerAdapter.setCountrySpinner(getContext(),(adapter)->binding.signupCountrySpinner.setAdapter(adapter));
-
 
         /* SUBMIT BTN */
         binding.signupSubmitBtn.setOnClickListener(view1-> {
@@ -90,7 +99,6 @@ public class SignUpFragment extends Fragment {
             username = binding.signupUsername.getText().toString();
             email = binding.signupEmail.getText().toString();
             password = binding.signupPassword.getText().toString();
-
 
             if (validateInput()) {
                 Model.getInstance().isUsernameTaken(username, (usernameTaken)-> {

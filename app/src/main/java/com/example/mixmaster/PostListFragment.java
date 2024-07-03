@@ -71,16 +71,6 @@ public class PostListFragment extends Fragment {
                                 PostListFragmentDirections.actionPostListFragmentToUserProfileFragment(post.userName);
                         Navigation.findNavController(view).navigate(action);
                     });
-
-//        adapter.setOnItemClickListener(new PostRecyclerAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int pos) {
-//                Log.d("TAG", "Row was clicked " + pos);
-//                Post post = viewModel.getData().getValue().get(pos);
-//                PostListFragmentDirections.ActionPostListFragmentToPostFragment action = PostListFragmentDirections.actionPostListFragmentToPostFragment(post.userName);
-//                Navigation.findNavController(view).navigate(action);
-//            }
-//        });
                 });
             }
         });
