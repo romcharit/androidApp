@@ -81,7 +81,7 @@ public class SignUpFragment extends Fragment {
         View view = binding.getRoot();
 
         // Set Country spinner
-//        SpinnerAdapter.setCountrySpinner(getContext(),(adapter)->binding.signupCountrySpinner.setAdapter(adapter));
+        SpinnerAdapter.setCountrySpinner(getContext(),(adapter)->binding.signupCountrySpinner.setAdapter(adapter));
 
 
         /* SUBMIT BTN */

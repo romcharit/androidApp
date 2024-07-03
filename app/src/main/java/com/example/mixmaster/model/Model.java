@@ -278,7 +278,7 @@ public class Model {
                     List<Country> countries = response.body();
                     if (countries != null) {
                         for (Country country : countries) {
-                            data.add(country.getName());
+                            data.add(country.getName().getCommon());
                         }
                         mainHandler.post(()-> listener.onComplete(data));
                     }

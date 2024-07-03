@@ -1,9 +1,16 @@
 package com.example.mixmaster.restAPI;
 
-public class Country {
-    private String name;
+import com.google.gson.annotations.SerializedName;
 
-    public String getName() {
+import java.util.Map;
+
+public class Country {
+    @SerializedName("name")
+    private Common name;
+
+    public Common getName() {
         return name;
     }
+
+
 }
